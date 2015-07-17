@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<reminder id="1"	URL="http://localhost:8080/tps/target"	POSTING_TIME="2014-04-16 14:30:00"		HOURS_UNTIL="10"	TEXT="Remember to turn in your expense reports."	/>
+	<reminder id="2"	URL="http://localhost:8080/tps/target"	POSTING_TIME="2014-05-17 16:22:55"		HOURS_UNTIL="48"	TEXT="All-hands meeting netx Thursday"	/>
+</dataset>
