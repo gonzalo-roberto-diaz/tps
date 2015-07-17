@@ -40,6 +40,7 @@ public class ReminderDaoImpl extends AbstractDao<Integer, Reminder> implements R
 	public List<Reminder> readNotConsumed(int size) {
 		Criteria criteria = createEntityCriteria();
 		criteria.add(Restrictions.eq("consumed", 'N'));
+		criteria.add(Restrictions.le("postingTime", new Date()));
 		criteria.setFirstResult(0);
 		criteria.setMaxResults(size);
 		return (List<Reminder>) criteria.list();
