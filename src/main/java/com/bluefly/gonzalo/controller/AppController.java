@@ -95,7 +95,6 @@ public class AppController {
 
     @RequestMapping(value = "/create",   method = RequestMethod.POST)
 	public Reminder  create(@RequestBody Reminder reminder) {
-    	System.out.println("*****************reminder is  " + reminder);
         if (reminder.getHoursUntil()== null){
         	throw new BadRequestException("missing hours");
         }else if (reminder.getUrl() == null){

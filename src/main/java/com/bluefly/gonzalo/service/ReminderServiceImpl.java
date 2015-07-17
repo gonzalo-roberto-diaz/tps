@@ -3,6 +3,7 @@ package com.bluefly.gonzalo.service;
 import java.net.URI;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,6 +22,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service("reminderService")
 @Transactional
 public class ReminderServiceImpl implements ReminderService {
+	
+	Logger log = Logger.getLogger(ReminderServiceImpl.class.getName());
 
 	@Autowired
 	private ReminderDao dao;
@@ -73,10 +76,10 @@ public class ReminderServiceImpl implements ReminderService {
 	}
 
 	@Scheduled(fixedRate = 15000)
-	public void dummy() {
+	public void postDues() {
 		List<Reminder> notConsumed = dao.readNotConsumed(100);
 		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("processing " + notConsumed.size() + " reminders ...");
+		log.info("processing " + notConsumed.size() + " reminders ...");
 		for (Reminder reminder : notConsumed) {
 			RestTemplate restTemplate = new RestTemplate();
 			String jsonString;
@@ -84,13 +87,13 @@ public class ReminderServiceImpl implements ReminderService {
 				jsonString = mapper.writeValueAsString(reminder.getText());
 			} catch (JsonProcessingException e) {
 				reminder.setConsumed('F');
-				System.out.println(" posting of reminder whose id is =" + reminder.getId() + " failed!");
-				System.out.println(" reason: the reminders' text was not properly serualized: " + e.getMessage());
+				log.error(" posting of reminder whose id is =" + reminder.getId() + " failed!");
+				log.error(" reason: the reminders' text was not properly serualized: " + e.getMessage());
 				continue;
 			}
 			String posting = restTemplate.postForObject(reminder.getUrl(), jsonString, String.class);
-			System.out.println(" posted reminder whose id is =" + reminder.getId());
-			System.out.println(" response was =" + posting);
+			log.info(" posted reminder whose id is =" + reminder.getId());
+			log.info(" response was =" + posting);
 			reminder.setConsumed('Y');
 		}
 	}

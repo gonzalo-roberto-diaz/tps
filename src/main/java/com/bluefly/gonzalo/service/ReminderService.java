@@ -20,7 +20,7 @@ public interface ReminderService {
 	
 	public void calculatePostingTime(Reminder reminder);
 	
-	public void dummy();
+	public void postDues();
 	
 
 	

@@ -60,12 +60,12 @@ public class ReminderDaoImplTest extends EntityDaoImplTest{
 
 
 	public Reminder getSampleReminder(){
-		Reminder employee = new Reminder();
-		employee.setUrl("Karen");
-		employee.setText("12345");
-		employee.setHoursUntil(32);
-		employee.setPostingTime(new Date());
-		return employee;
+		Reminder reminder = new Reminder();
+		reminder.setUrl("Karen");
+		reminder.setText("12345");
+		reminder.setHoursUntil(32);
+		reminder.setPostingTime(new Date());
+		return reminder;
 	}
 
 }
