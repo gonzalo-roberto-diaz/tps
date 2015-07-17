@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Reminder {
 
 	@Id
+	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 

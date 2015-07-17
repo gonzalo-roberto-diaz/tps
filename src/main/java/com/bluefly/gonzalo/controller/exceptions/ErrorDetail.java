@@ -1,4 +1,4 @@
-package com.bluefly.gonzalo.controller;
+package com.bluefly.gonzalo.controller.exceptions;
 
 public class ErrorDetail {
 	private int status;

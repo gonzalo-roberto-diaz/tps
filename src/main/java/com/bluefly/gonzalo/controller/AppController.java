@@ -14,6 +14,8 @@ import javax.validation.Valid;
 
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.MediaTypeEditor;
 import org.springframework.http.ResponseEntity;
 
+import com.bluefly.gonzalo.controller.exceptions.BadRequestException;
+import com.bluefly.gonzalo.controller.exceptions.ErrorDetail;
+import com.bluefly.gonzalo.controller.exceptions.RecordNotFoundException;
 import com.bluefly.gonzalo.model.Reminder;
 import com.bluefly.gonzalo.service.ReminderService;
 
@@ -96,11 +101,11 @@ public class AppController {
     @RequestMapping(value = "/create",   method = RequestMethod.POST)
 	public Reminder  create(@RequestBody Reminder reminder) {
         if (reminder.getHoursUntil()== null){
-        	throw new BadRequestException("missing hours");
+        	throw new BadRequestException("hours.missing");
         }else if (reminder.getUrl() == null){
-        	throw new BadRequestException("missing url");
+        	throw new BadRequestException("url.missing");
         }else if (reminder.getText()==null){
-        	throw new BadRequestException("missing text");
+        	throw new BadRequestException("text.missing");
         }
 		Reminder result = service.saveReminder(reminder);
 		return result;
@@ -110,7 +115,7 @@ public class AppController {
 	public Reminder  updateText(@RequestParam int id, @RequestParam String newText) {
     	Reminder reminder = service.findById(id);
         if ( reminder == null){
-        	throw new  RecordNotFoundException("record id=" + id);
+        	throw new  RecordNotFoundException(Integer.toString(id));
         }
         reminder.setText(newText);
         Reminder result = service.updateReminder(reminder);
@@ -121,7 +126,7 @@ public class AppController {
 	public Reminder  updateUrl(@RequestParam int id, @RequestParam String newUrl) {
     	Reminder reminder = service.findById(id);
         if ( reminder == null){
-        	throw new  RecordNotFoundException("record id=" + id);
+        	throw new  RecordNotFoundException(Integer.toString(id));
         }
         reminder.setUrl(newUrl);
         Reminder result = service.updateReminder(reminder);
@@ -132,7 +137,7 @@ public class AppController {
 	public Reminder  updateHoursUntill(@RequestParam int id, @RequestParam int newHoursUntil) {
     	Reminder reminder = service.findById(id);
         if ( reminder == null){
-        	throw new  RecordNotFoundException("record id=" + id);
+        	throw new  RecordNotFoundException(Integer.toString(id));
         }
         reminder.setHoursUntil(newHoursUntil);
         service.calculatePostingTime(reminder);
@@ -154,7 +159,7 @@ public class AppController {
 	public void  delete(@RequestParam int id) {
     	Reminder reminder = service.findById(id);
         if ( reminder == null){
-        	throw new  RecordNotFoundException("record id=" + id);
+        	throw new  RecordNotFoundException(Integer.toString(id));
         }
         service.delete(reminder);
 	} 
