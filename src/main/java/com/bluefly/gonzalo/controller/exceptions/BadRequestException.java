@@ -5,7 +5,11 @@ import java.util.ResourceBundle;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-
+/**
+ * registered exception for some of the input validations done at the controller
+ * @author gdiaz
+ *
+ */
 public class BadRequestException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	

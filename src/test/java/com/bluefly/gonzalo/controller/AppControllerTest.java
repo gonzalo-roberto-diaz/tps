@@ -37,25 +37,22 @@ import org.testng.annotations.Test;
 
 import com.bluefly.gonzalo.model.Reminder;
 import com.bluefly.gonzalo.service.ReminderService;
-
+/**
+ * some very trivial unit-testing on controller methods
+ * @author gdiaz
+ *
+ */
 public class AppControllerTest {
 
-	@Mock
-	ReminderService service;
 	
-	@Mock
-	MessageSource message;
+	
 	
 	AppController ctrl;
 	
 	@Spy
 	List<Reminder> reminders = new ArrayList<>();
 
-	@Spy
-	ModelMap model;
-	
-	@Mock
-	BindingResult result;
+
 	
 	@BeforeClass
 	public void setUp(){
@@ -63,43 +60,7 @@ public class AppControllerTest {
 		reminders = getReminderList();
 		ctrl = Mockito.mock(AppController.class);
 	}
-	/*
-	@Test
-	public void listReminders(){
-		when(service.findAllReminders()).thenReturn(reminders);
-		Assert.assertEquals(appController.listReminders(model), "allemployees");
-		Assert.assertEquals(model.get("employees"), reminders);
-		verify(service, atLeastOnce()).findAllReminders();
-	}
-	*/
-	
-	/*
-	@Test
-	public void newReminder(){
-		Assert.assertEquals(appController.newReminder(model), "registration");
-		Assert.assertNotNull(model.get("employee"));
-		Assert.assertFalse((Boolean)model.get("edit"));
-		Assert.assertEquals(((Reminder)model.get("employee")).getId(), 0);
-	}
-	*/
 
-/*
-	@Test
-	public void saveReminderWithValidationError(){
-		when(result.hasErrors()).thenReturn(true);
-		doNothing().when(service).saveReminder(any(Reminder.class));
-		Assert.assertEquals(appController.saveReminder(reminders.get(0), result, model), "registration");
-	}
-	*/
-
-	/*
-	@Test
-	public void saveReminderWithValidationErrorNonUniqueSSN(){
-		when(result.hasErrors()).thenReturn(false);
-		when(service.isReminderSsnUnique(anyInt(), anyString())).thenReturn(false);
-		Assert.assertEquals(appController.saveReminder(reminders.get(0), result, model), "registration");
-	}
-	*/
 
 	
 	@Test
@@ -168,46 +129,6 @@ public class AppControllerTest {
 		Assert.assertNotNull(ctrl.all(0, 3));
 		Assert.assertEquals(ctrl.all(0,3).size(), reminders.size());
 	}
-	
-	
-/*
-	@Test
-	public void editReminder(){
-		Reminder emp = reminders.get(0);
-		when(service.findReminderBySsn(anyString())).thenReturn(emp);
-		Assert.assertEquals(appController.editReminder(anyString(), model), "registration");
-		Assert.assertNotNull(model.get("employee"));
-		Assert.assertTrue((Boolean)model.get("edit"));
-		Assert.assertEquals(((Reminder)model.get("employee")).getId(), 1);
-	}
-	*/
-
-	/*
-	@Test
-	public void updateReminderWithValidationError(){
-		when(result.hasErrors()).thenReturn(true);
-		doNothing().when(service).updateReminder(any(Reminder.class));
-		Assert.assertEquals(appController.updateReminder(reminders.get(0), result, model,""), "registration");
-	}
-
-	@Test
-	public void updateReminderWithValidationErrorNonUniqueSSN(){
-		when(result.hasErrors()).thenReturn(false);
-		when(service.isReminderSsnUnique(anyInt(), anyString())).thenReturn(false);
-		Assert.assertEquals(appController.updateReminder(reminders.get(0), result, model,""), "registration");
-	}
-	*/
-
-	/*
-	@Test
-	public void updateReminderWithSuccess(){
-		when(result.hasErrors()).thenReturn(false);
-		when(service.isReminderSsnUnique(anyInt(), anyString())).thenReturn(true);
-		doNothing().when(service).updateReminder(any(Reminder.class));
-		Assert.assertEquals(appController.updateReminder(reminders.get(0), result, model, ""), "success");
-		Assert.assertEquals(model.get("success"), "Reminder Axel updated successfully");
-	}
-	*/
 	
 
 	@Test

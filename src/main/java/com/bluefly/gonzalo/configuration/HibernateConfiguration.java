@@ -20,6 +20,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ComponentScan({ "com.bluefly.gonzalo.configuration" })
 @PropertySource(value = { "classpath:application.properties" })
+/**
+ * Hibernate configuration.
+ * Using LocalSectionFactoryBean instead of JPA's entityManager
+ * @author gdiaz
+ *
+ */
 public class HibernateConfiguration {
 
     @Autowired

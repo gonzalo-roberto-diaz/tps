@@ -17,10 +17,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /*
  * This class is same as real HibernateConfiguration class in sources.
- * Only difference is that method dataSource & hibernateProperties 
- * implementations are specific to Hibernate working with H2 database.
+ * Works with an in-memory h2 database 
  */
-
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({ "com.bluefly.gonzalo.dao" })

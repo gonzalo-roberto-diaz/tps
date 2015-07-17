@@ -9,6 +9,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * utility class for common DAO operations
+ * @author gdiaz
+ *
+ * @param <PK>
+ * @param <T>
+ */
 public abstract class AbstractDao<PK extends Serializable, T> {
 	
 	private final Class<T> persistentClass;

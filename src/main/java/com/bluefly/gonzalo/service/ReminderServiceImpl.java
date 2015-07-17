@@ -1,11 +1,14 @@
 package com.bluefly.gonzalo.service;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service("reminderService")
 @Transactional
+/**
+ * Service implementation class of this application
+ * Provides basic data access operation, plus the critical plus some business methods 
+ * @author gdiaz
+ *
+ */
 public class ReminderServiceImpl implements ReminderService {
 	
 	Logger log = Logger.getLogger(ReminderServiceImpl.class.getName());
@@ -40,6 +49,11 @@ public class ReminderServiceImpl implements ReminderService {
 		return dao.saveReminder(reminder);
 	}
 
+	/**
+	 * updates the value of the domain object. Notice that no DAO action is necessary,
+	 * as the object, this being wrapped in a proper transaction, 
+	 * will be persisted in due time when the transaction finishes and the session is flushed 
+	 */
 	public Reminder updateReminder(Reminder reminder) {
 		Reminder entity = dao.findById(reminder.getId());
 		if (entity != null) {
@@ -75,27 +89,36 @@ public class ReminderServiceImpl implements ReminderService {
 		time = time.plusHours(reminder.getHoursUntil());
 		reminder.setPostingTime(time.toDate());
 	}
+	
+	@Value("${dues.batch.size}")
+	private int duesBatchSize;
 
 	@Scheduled( cron = "${cron.expression}")
+	/**
+	 * retrieves those posted reminders that are ready for submission, submits them, and marks them as consumed
+	 * (all properly wrapped in a transaction)
+	 * Records presenting any JSON parsing problem are marked as "Failed", but thet don't invalidate the transaction
+	 */
 	public void postDues() {
-		List<Reminder> notConsumed = dao.readNotConsumed(100);
+		List<Reminder> notConsumed = dao.readNotConsumed(duesBatchSize);
 		ObjectMapper mapper = new ObjectMapper();
 		log.info("processing " + notConsumed.size() + " reminders ...");
 		for (Reminder reminder : notConsumed) {
 			RestTemplate restTemplate = new RestTemplate();
-			String jsonString;
+			Map<String, String> jsonMap = new HashMap<String, String>() ;
 			try {
-				jsonString = mapper.writeValueAsString(reminder.getText());
+				String jsonString = mapper.writeValueAsString(reminder.getText());
+				jsonMap.put("message", jsonString);
+				String posting = restTemplate.postForObject(reminder.getUrl(), jsonMap, String.class);
+				log.info(" posted reminder whose id is =" + reminder.getId());
+				log.info(" response was =" + posting);
+				reminder.setConsumed('Y');
 			} catch (JsonProcessingException e) {
 				reminder.setConsumed('F');
 				log.error(" posting of reminder whose id is =" + reminder.getId() + " failed!");
 				log.error(" reason: the reminders' text was not properly serualized: " + e.getMessage());
 				continue;
 			}
-			String posting = restTemplate.postForObject(reminder.getUrl(), jsonString, String.class);
-			log.info(" posted reminder whose id is =" + reminder.getId());
-			log.info(" response was =" + posting);
-			reminder.setConsumed('Y');
 		}
 	}
 

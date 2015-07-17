@@ -13,7 +13,11 @@ import org.testng.annotations.BeforeMethod;
 
 import com.bluefly.gonzalo.configuration.HibernateTestConfiguration;
 
-
+/**
+ * Configuration class for DAO tests. It utilizes DBUint for database-related unit testing
+ * @author gdiaz
+ *
+ */
 @ContextConfiguration(classes = { HibernateTestConfiguration.class })
 public abstract class EntityDaoImplTest extends AbstractTransactionalTestNGSpringContextTests {
 

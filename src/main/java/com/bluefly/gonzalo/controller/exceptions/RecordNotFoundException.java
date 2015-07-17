@@ -4,6 +4,11 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 
+/**
+ * registered exception for DELETE and PUT - style calls, to be thrown when a record is not found.
+ * @author gdiaz
+ *
+ */
 public class RecordNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	

@@ -16,6 +16,11 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.bluefly.gonzalo")
 @EnableScheduling
+/**
+ * main configuration class
+ * @author gdiaz
+ *
+ */
 public class AppConfig {
 	
 

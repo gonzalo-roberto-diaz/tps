@@ -1,6 +1,6 @@
 package com.bluefly.gonzalo.model;
 
-import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,16 +13,18 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.LocalDate;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
 @Table(name="REMINDER")
+/**
+ * Central domain class in this sample application
+ * @author gdiaz
+ *
+ */
 public class Reminder {
 
 	@Id

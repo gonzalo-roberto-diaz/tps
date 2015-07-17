@@ -45,6 +45,11 @@ import com.bluefly.gonzalo.service.ReminderService;
 
 @RestController
 @RequestMapping(value = "/tps")
+/**
+ * REST controller of the application
+ * @author gdiaz
+ *
+ */
 public class AppController {
 
 	@Autowired
@@ -74,29 +79,6 @@ public class AppController {
 	    return error;
 	}	
 
-	/*
-	 * This method will list all existing reminders.
-	 */
-	/*
-	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
-	public String listReminders(ModelMap model) {
-
-		List<Reminder> reminders = service.findAllReminders();
-		model.addAttribute("reminders", reminders);
-		return "allemployees";
-	}
-	*/
-
-//	/*
-//	 * This method will provide the medium to add a new employee.
-//	 */
-//	@RequestMapping(value = { "/new" }, method = RequestMethod.GET)
-//	public String newReminder(ModelMap model) {
-//		Reminder employee = new Reminder();
-//		model.addAttribute("employee", employee);
-//		model.addAttribute("edit", false);
-//		return "registration";
-//	}
 
     @RequestMapping(value = "/create",   method = RequestMethod.POST)
 	public Reminder  create(@RequestBody Reminder reminder) {
@@ -164,53 +146,6 @@ public class AppController {
         service.delete(reminder);
 	} 
     
-    
 
-
-	/*
-	 * This method will provide the medium to update an existing employee.
-	 */
-//	@RequestMapping(value = { "/edit-{ssn}-employee" }, method = RequestMethod.GET)
-//	public String editReminder(@PathVariable String ssn, ModelMap model) {
-//		Reminder employee = service.findReminderBySsn(ssn);
-//		model.addAttribute("employee", employee);
-//		model.addAttribute("edit", true);
-//		return "registration";
-//	}
-	
-	/*
-	 * This method will be called on form submission, handling POST request for
-	 * updating employee in database. It also validates the user input
-	 */
-    /*
-	@RequestMapping(value = { "/edit-{ssn}-employee" }, method = RequestMethod.POST)
-	public String updateReminder(@Valid Reminder employee, BindingResult result,
-			ModelMap model, @PathVariable String ssn) {
-
-		if (result.hasErrors()) {
-			return "registration";
-		}
-
-//		if(!service.isReminderSsnUnique(employee.getId(), employee.getText())){
-//			FieldError ssnError =new FieldError("employee","ssn",messageSource.getMessage("non.unique.ssn", new String[]{employee.getText()}, Locale.getDefault()));
-//		    result.addError(ssnError);
-//			return "registration";
-//		}
-
-		service.updateReminder(employee);
-
-		model.addAttribute("success", "Reminder " + employee.getUrl()	+ " updated successfully");
-		return "success";
-	}
-
-	
-//	/*
-//	 * This method will delete an employee by it's SSN value.
-//	 */
-//	@RequestMapping(value = { "/delete-{ssn}-employee" }, method = RequestMethod.GET)
-//	public String deleteReminder(@PathVariable String ssn) {
-//		service.deleteReminderBySsn(ssn);
-//		return "redirect:/list";
-//	}
 
 }

@@ -18,6 +18,11 @@ import org.springframework.stereotype.Repository;
 import com.bluefly.gonzalo.model.Reminder;
 
 @Repository("reminderDao")
+/**
+ * DAO class for Reminders
+ * @author gdiaz
+ *
+ */
 public class ReminderDaoImpl extends AbstractDao<Integer, Reminder> implements ReminderDao {
 
 	public Reminder findById(int id) {

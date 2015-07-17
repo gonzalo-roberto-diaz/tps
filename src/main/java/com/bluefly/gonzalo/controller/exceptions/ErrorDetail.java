@@ -1,5 +1,10 @@
 package com.bluefly.gonzalo.controller.exceptions;
 
+/**
+ * utility error DTO class for the registered exceptions
+ * @author gdiaz
+ *
+ */
 public class ErrorDetail {
 	private int status;
 	private String message;

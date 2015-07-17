@@ -28,6 +28,11 @@ import com.bluefly.gonzalo.dao.ReminderDao;
 import com.bluefly.gonzalo.model.Reminder;
 import com.bluefly.gonzalo.service.ReminderServiceImpl;
 
+/**
+ * elementary unit tests for services
+ * @author gdiaz
+ *
+ */
 public class ReminderServiceImplTest {
 
 	@Mock
@@ -52,36 +57,12 @@ public class ReminderServiceImplTest {
 		Assert.assertEquals(reminderService.findById(emp.getId()),emp);
 	}
 	
-	/*
-
-	@Test
-	public void saveReminder(){
-		doNothing().when(dao).saveReminder(any(Reminder.class));
-		reminderService.saveReminder(any(Reminder.class));
-		verify(dao, atLeastOnce()).saveReminder(any(Reminder.class));
-	}
-	
-	@Test
-	public void updateReminder(){
-		Reminder emp = reminders.get(0);
-		when(dao.findById(anyInt())).thenReturn(emp);
-		reminderService.updateReminder(emp);
-		verify(dao, atLeastOnce()).findById(anyInt());
-	}
-	
-	*/
-
-
 	
 	@Test
 	public void findAllReminders(){
 		when(dao.findAllReminders(anyInt(), anyInt())).thenReturn(reminders);
 		Assert.assertEquals(reminderService.findAllReminders(0, 2), reminders);
 	}
-	
-
-
-
 	
 	
 	public List<Reminder> getReminderList(){
