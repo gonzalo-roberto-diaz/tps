@@ -14,10 +14,10 @@
         <priority value="INFO"/>
     </category>
     <category name="org.hibernate.SQL">
-        <priority value="DEBUG"/>
+        <priority value="WARN"/>
     </category>
     <category name="org.hibernate.type">
-        <priority value="TRACE"/>
+        <priority value="WARN"/>
     </category>
 
     <root>

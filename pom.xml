@@ -154,19 +154,6 @@
 			<version>2.5.1</version>
 		</dependency>
 
-		<!-- quartz jobs -->
-		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
-			<version>${quartz.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${springframework.version}</version>
-		</dependency>
-
 
 		<!-- logging -->
 
